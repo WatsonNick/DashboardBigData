@@ -224,7 +224,7 @@ if uploaded_file is not None:
                     # Ambil probs dari session_state
                     if hasattr(st.session_state, 'probs'):
                         probs = st.session_state.probs
-                        fig = topic_model.visualize_distribution(probs, axis=True)
+                        fig = topic_model.visualize_distribution(probs)
                         st.plotly_chart(fig, use_container_width=True)
                     else:
                         st.warning("⚠️ Probability data not available. Please run topic modeling first.")
