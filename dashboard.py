@@ -192,7 +192,27 @@ if uploaded_file is not None:
             # Topic info table
             st.markdown("### 📋 Topic Information")
             st.dataframe(topic_info.head(10), use_container_width=True)
-    
+
+            # Topic info table
+            st.markdown("### 📈 Cluster Stability")
+            
+            # Ambil nilai stabilitas dan label dari HDBSCAN
+            stabilities = topic_model.hdbscan_model.cluster_persistence_
+            labels = topic_model.hdbscan_model.labels_
+            
+            # Buat DataFrame
+            cluster_stability_df = pd.DataFrame({
+                "Topic": list(set(labels)),
+                "Stability": stabilities
+            }).sort_values(by="Stability", ascending=False)
+            
+            # Tampilkan sebagai tabel
+            st.dataframe(cluster_stability_df, use_container_width=True)
+            
+            # Optional: Visualisasi bar chart
+            st.markdown("### 📊 Stability Bar Chart")
+            st.bar_chart(cluster_stability_df.set_index("Topic"))
+        
     with tab3:
         st.markdown('<div class="section-header">Topic Visualizations</div>', unsafe_allow_html=True)
         
