@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from bertopic import BERTopic
 from umap import UMAP
 from sklearn.cluster import KMeans
+from hdbscan import HDBSCAN
 from sentence_transformers import SentenceTransformer
 from bertopic.vectorizers import ClassTfidfTransformer
 import numpy as np
@@ -161,7 +162,7 @@ if uploaded_file is not None:
                 
                 # Initialize models
                 sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
-                cluster_model = KMeans(n_clusters=n_clusters, random_state=42)
+                cluster_model = HDBSCAN(min_cluster_size=25, metric='euclidean', cluster_selection_method='eom', prediction_data=True)
                 umap_model = UMAP(
                     n_neighbors=n_neighbors, n_components=n_components,
                     min_dist=0.0, metric='cosine', random_state=42
