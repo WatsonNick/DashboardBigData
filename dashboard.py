@@ -195,8 +195,8 @@ if uploaded_file is not None:
 
             # Topic info table
             st.markdown("### 📈 Cluster Stability")
-            
             # Ambil nilai stabilitas dan label dari HDBSCAN
+            topic_model = st.session_state.topic_model
             stabilities = topic_model.hdbscan_model.cluster_persistence_
             labels = topic_model.hdbscan_model.labels_
             
