@@ -201,17 +201,20 @@ if uploaded_file is not None:
             labels = topic_model.hdbscan_model.labels_
             
             # Buat DataFrame
+            unique_topics = sorted([topic for topic in set(labels) if topic != -1])
+            # Buat DataFrame Cluster Stability
             cluster_stability_df = pd.DataFrame({
-                "Topic": list(set(labels)),
+                "Topic": unique_topics,
                 "Stability": stabilities
             }).sort_values(by="Stability", ascending=False)
             
-            # Tampilkan sebagai tabel
-            st.dataframe(cluster_stability_df, use_container_width=True)
+            # Tampilkan 10 stabilitas teratas
+            st.markdown("### 📈 Top 10 Cluster Stability")
+            st.dataframe(cluster_stability_df.head(10), use_container_width=True)
             
-            # Optional: Visualisasi bar chart
-            st.markdown("### 📊 Stability Bar Chart")
-            st.bar_chart(cluster_stability_df.set_index("Topic"))
+            # Opsional: Visualisasi bar chart untuk top 10
+            st.markdown("### 📊 Stability Bar Chart (Top 10)")
+            st.bar_chart(cluster_stability_df.head(10).set_index("Topic"))
         
     with tab3:
         st.markdown('<div class="section-header">Topic Visualizations</div>', unsafe_allow_html=True)
