@@ -197,15 +197,20 @@ if uploaded_file is not None:
             st.markdown("### 📈 Cluster Stability")
             # Ambil nilai stabilitas dan label dari HDBSCAN
             topic_model = st.session_state.topic_model
-            stabilities = topic_model.hdbscan_model.cluster_persistence_
+            cluster_persistence = topic_model.hdbscan_model.cluster_persistence_
             labels = topic_model.hdbscan_model.labels_
             
+            # Hanya ambil topik unik (tanpa noise -1)
+            valid_indices = labels != -1
+            unique_topics = sorted(list(set(labels[valid_indices])))
+            
+            # Ambil stabilitas hanya untuk topik unik (HDBSCAN menyimpan hanya untuk klaster valid)
+            stability_per_topic = cluster_persistence[:len(unique_topics)]
+            
             # Buat DataFrame
-            unique_topics = sorted([topic for topic in set(labels) if topic != -1])
-            # Buat DataFrame Cluster Stability
             cluster_stability_df = pd.DataFrame({
                 "Topic": unique_topics,
-                "Stability": stabilities
+                "Stability": stability_per_topic
             }).sort_values(by="Stability", ascending=False)
             
             # Tampilkan 10 stabilitas teratas
