@@ -87,7 +87,7 @@ if uploaded_file is not None:
         "Jumlah Clusters",
         min_value=10, max_value=100,
         value=50, step=5,
-        help="Jumlah clusters untuk K-Means clustering"
+        help="Jumlah clusters untuk HDBScans clustering"
     )
     n_neighbors = st.sidebar.slider(
         "UMAP Neighbors",
