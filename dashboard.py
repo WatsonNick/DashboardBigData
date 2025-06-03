@@ -164,7 +164,7 @@ if uploaded_file is not None:
                 
                 # Create BERTopic model
                 topic_model = BERTopic(
-                    embedding_model=sentence_model, umap_model=umap_model,
+                    language = "multilingual", embedding_model=sentence_model, umap_model=umap_model,
                     hdbscan_model=cluster_model, ctfidf_model=ctfidf_model, verbose=True
                 )
                 
