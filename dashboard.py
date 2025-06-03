@@ -204,10 +204,11 @@ if uploaded_file is not None:
                 "Select Visualization",
                 [
                     "Topic Bar Chart",
+                    "Topic Probability Distribution",
                     "Topic Hierarchy",
                     "Topic Similarity Heatmap",
                     "Topic Terms Rank",
-                    "Intertopic Distance Map"
+                    "Intertopic Distance Map",
                 ]
             )
             
@@ -216,7 +217,12 @@ if uploaded_file is not None:
                     st.markdown("### 📊 Top 10 Topic Bar Chart")
                     fig = topic_model.visualize_barchart(top_n_topics=10)
                     st.plotly_chart(fig, use_container_width=True)
-                
+                    
+                elif viz_option == "Topic Probability Distribution":
+                    st.markdown("### 🖥️ Topic Probability Distribution")
+                    fig = topic_model.visualize_distribution()
+                    st.plotly_chart(fig, use_container_width=True)
+                    
                 elif viz_option == "Topic Hierarchy":
                     st.markdown("### 🌳 Topic Hierarchy")
                     fig = topic_model.visualize_hierarchy()
