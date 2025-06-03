@@ -82,13 +82,6 @@ if uploaded_file is not None:
     
     # BERTopic Parameters
     st.sidebar.markdown("### 🎛️ BERTopic Parameters")
-    
-    n_clusters = st.sidebar.slider(
-        "Jumlah Clusters",
-        min_value=10, max_value=100,
-        value=50, step=5,
-        help="Jumlah clusters untuk HDBScans clustering"
-    )
     n_neighbors = st.sidebar.slider(
         "UMAP Neighbors",
         min_value=5, max_value=50,
