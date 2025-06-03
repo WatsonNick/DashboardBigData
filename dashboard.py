@@ -220,7 +220,7 @@ if uploaded_file is not None:
                     
                 elif viz_option == "Topic Probability Distribution":
                     st.markdown("### 🖥️ Topic Probability Distribution")
-                    fig = topic_model.visualize_distribution(probs[0])
+                    fig = topic_model.visualize_distribution(probs, axis=True)
                     st.plotly_chart(fig, use_container_width=True)
                     
                 elif viz_option == "Topic Hierarchy":
