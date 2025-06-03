@@ -213,7 +213,7 @@ if uploaded_file is not None:
             
             try:
                 if viz_option == "Topic Bar Chart":
-                    st.markdown("### 📊 Topic Bar Chart")
+                    st.markdown("### 📊 Top 10 Topic Bar Chart")
                     fig = topic_model.visualize_barchart(top_n_topics=10)
                     st.plotly_chart(fig, use_container_width=True)
                 
