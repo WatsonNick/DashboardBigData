@@ -220,8 +220,15 @@ if uploaded_file is not None:
                     
                 elif viz_option == "Topic Probability Distribution":
                     st.markdown("### 🖥️ Topic Probability Distribution")
-                    fig = topic_model.visualize_distribution(probs, axis=True)
-                    st.plotly_chart(fig, use_container_width=True)
+    
+                    # Ambil probs dari session_state
+                    if hasattr(st.session_state, 'probs'):
+                        probs = st.session_state.probs
+                        fig = topic_model.visualize_distribution(probs, axis=True)
+                        st.plotly_chart(fig, use_container_width=True)
+                    else:
+                        st.warning("⚠️ Probability data not available. Please run topic modeling first.")
+
                     
                 elif viz_option == "Topic Hierarchy":
                     st.markdown("### 🌳 Topic Hierarchy")
