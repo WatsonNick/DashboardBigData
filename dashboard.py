@@ -157,7 +157,7 @@ if uploaded_file is not None:
                 sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
                 cluster_model = HDBSCAN(min_cluster_size=25, metric='euclidean', cluster_selection_method='eom', prediction_data=True)
                 umap_model = UMAP(
-                    n_neighbors=n_neighbors, n_components=n_components,
+                    n_neighbors=15, n_components=5,
                     min_dist=0.0, metric='cosine', random_state=42
                 )
                 ctfidf_model = ClassTfidfTransformer(reduce_frequent_words=True)
