@@ -80,20 +80,20 @@ if uploaded_file is not None:
         st.write("**Sample Data:**")
         st.dataframe(df.head(3))
     
-    # BERTopic Parameters
-    st.sidebar.markdown("### 🎛️ BERTopic Parameters")
-    n_neighbors = st.sidebar.slider(
-        "UMAP Neighbors",
-        min_value=5, max_value=50,
-        value=15, step=5,
-        help="Jumlah neighbors untuk UMAP dimensionality reduction"
-    )
-    n_components = st.sidebar.slider(
-        "UMAP Components",
-        min_value=2, max_value=10,
-        value=5, step=1,
-        help="Jumlah komponen untuk UMAP"
-    )
+    # # BERTopic Parameters
+    # st.sidebar.markdown("### 🎛️ BERTopic Parameters")
+    # n_neighbors = st.sidebar.slider(
+    #     "UMAP Neighbors",
+    #     min_value=5, max_value=50,
+    #     value=15, step=5,
+    #     help="Jumlah neighbors untuk UMAP dimensionality reduction"
+    # )
+    # n_components = st.sidebar.slider(
+    #     "UMAP Components",
+    #     min_value=2, max_value=10,
+    #     value=5, step=1,
+    #     help="Jumlah komponen untuk UMAP"
+    # )
 
     # Main content
     tab1, tab2, tab3, tab4 = st.tabs(["📈 Overview", "🎯 Topic Analysis", "📊 Visualizations", "📋 Topic Details"])
