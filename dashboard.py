@@ -245,13 +245,17 @@ if uploaded_file is not None:
                 if viz_option == "Word Cloud":
                     st.markdown("### 🌐 Word Cloud for Topics")
                     # Choose a specific topic for word cloud
+                    topic_model = st.session_state.topic_model
+                    topic_info = topic_model.get_topic_info()
+            
+                    # Topic selection
+                    topic_ids = topic_info['Topic'].tolist()
                     topic_id = st.selectbox(
                         "Select Topic for Word Cloud",
-                        options=topic_model.get_topic_info()['Topic'].tolist(),
-                        format_func=lambda x: f"Topic {x}: {topic_model.get_topic(x)[0][0] if x in topic_model.get_topic_info()['Topic'].tolist() else 'Unknown'}"
+                        options=topic_ids,
+                        format_func=lambda x: f"Topic {x}: {topic_model.get_topic(x)[0][0] if x in topic_ids else 'Unknown'}"
                     )
-                    words_scores = dict(topic_model.get_topic(topic_id))
-                    fig = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(words_scores)
+                    fig = topic_model.visualize_wordcloud(topic_id)
                     st.plotly_chart(fig, use_container_width=True)
                 elif viz_option == "Topic Bar Chart":
                     st.markdown("### 📊 Top 10 Topic Bar Chart")
