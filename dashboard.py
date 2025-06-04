@@ -231,6 +231,7 @@ if uploaded_file is not None:
             viz_option = st.selectbox(
                 "Select Visualization",
                 [
+                    "Word Cloud",
                     "Topic Bar Chart",
                     "Topic Probability Distribution",
                     "Topic Hierarchy",
@@ -241,7 +242,17 @@ if uploaded_file is not None:
             )
             
             try:
-                if viz_option == "Topic Bar Chart":
+                if viz_option == "Word Cloud":
+                    st.markdown("### 🌐 Word Cloud for Topics")
+                    # Choose a specific topic for word cloud
+                    topic_id = st.selectbox(
+                        "Select Topic for Word Cloud",
+                        options=topic_model.get_topic_info()['Topic'].tolist(),
+                        format_func=lambda x: f"Topic {x}: {topic_model.get_topic(x)[0][0] if x in topic_model.get_topic_info()['Topic'].tolist() else 'Unknown'}"
+                    )
+                    fig = topic_model.visualize_wordcloud(topic_id)
+                    st.plotly_chart(fig, use_container_width=True)
+                elif viz_option == "Topic Bar Chart":
                     st.markdown("### 📊 Top 10 Topic Bar Chart")
                     fig = topic_model.visualize_barchart(top_n_topics=10)
                     st.plotly_chart(fig, use_container_width=True)
