@@ -250,7 +250,8 @@ if uploaded_file is not None:
                         options=topic_model.get_topic_info()['Topic'].tolist(),
                         format_func=lambda x: f"Topic {x}: {topic_model.get_topic(x)[0][0] if x in topic_model.get_topic_info()['Topic'].tolist() else 'Unknown'}"
                     )
-                    fig = topic_model.visualize_wordcloud(topic_id)
+                    words_scores = dict(topic_model.get_topic(topic_id))
+                    fig = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(words_scores)
                     st.plotly_chart(fig, use_container_width=True)
                 elif viz_option == "Topic Bar Chart":
                     st.markdown("### 📊 Top 10 Topic Bar Chart")
