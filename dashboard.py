@@ -250,14 +250,31 @@ if uploaded_file is not None:
             
                     # Topic selection
                     topic_ids = topic_info['Topic'].tolist()
+                    # Define a safe format_func that checks if a topic has words
+                    def format_topic_label(topic_id):
+                        if topic_id in topic_ids:
+                            topic_words = topic_model.get_topic(topic_id)
+                            if topic_words: # Check if the list of words is not empty
+                                return f"Topic {topic_id}: {topic_words[0][0]}"
+                            else:
+                                return f"Topic {topic_id}: (No words)"
+                        return "Unknown Topic"
+
                     topic_id = st.selectbox(
                         "Select Topic for Word Cloud",
                         options=topic_ids,
-                        format_func=lambda x: f"Topic {x}: {topic_model.get_topic(x)[0][0] if x in topic_ids else 'Unknown'}"
+                        format_func=format_topic_label
                     )
                     words_scores = dict(topic_model.get_topic(topic_id))
                     fig = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(words_scores)
-                    st.plotly_chart(fig, use_container_width=True)
+                    wc = WordCloud(width=800,
+                           height=400,
+                           background_color='white').generate_from_frequencies(words_scores)
+                    # Display using matplotlib
+                    fig, ax = plt.subplots()
+                    ax.imshow(wc, interpolation='bilinear')
+                    ax.axis("off") # Hide axes
+                    st.pyplot(fig, use_container_width=True)
                     
                 elif viz_option == "Topic Bar Chart":
                     st.markdown("### 📊 Top 10 Topic Bar Chart")
